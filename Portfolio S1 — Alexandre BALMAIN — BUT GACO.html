@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio S1 — Alexandre BALMAIN — BUT GACO</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =============================================
+       VARIABLES — STRICT NOIR & BLANC
+    ============================================= */
+    :root {
+      /* Backgrounds */
+      --bg:          #080808;
+      --bg-2:        #0f0f0f;
+      --bg-3:        #141414;
+      --bg-card:     #111111;
+      --bg-card-hover: #181818;
+
+      /* Borders */
+      --border:      rgba(255,255,255,0.08);
+      --border-mid:  rgba(255,255,255,0.14);
+      --border-hover:rgba(255,255,255,0.22);
+
+      /* Text */
+      --text:        #f0f0f0;
+      --text-muted:  #888888;
+      --text-faint:  #444444;
+
+      /* Accent = BLANC uniquement */
+      --accent:      #ffffff;
+      --accent-dim:  rgba(255,255,255,0.12);
+
+      /* Fonts */
+      --font-display: 'Syne', sans-serif;
+      --font-body:    'DM Sans', sans-serif;
+
+      /* Radius */
+      --radius:    16px;
+      --radius-sm: 10px;
+      --radius-xs: 6px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* =============================================
+       LAYOUT
+    ============================================= */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    section { padding: 100px 0; }
+
+    /* =============================================
+       NAV
+    ============================================= */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-faint);
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    /* Fine grid lines */
+    .hero-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      pointer-events: none;
+      mask-image: radial-gradient(ellipse at 60% 50%, black 20%, transparent 65%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      border: 1px solid var(--border-mid);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      animation: fadeInUp 0.6s ease forwards;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(60px, 10vw, 110px);
+      font-weight: 800;
+      line-height: 0.92;
+      letter-spacing: -0.04em;
+      margin-bottom: 28px;
+      animation: fadeInUp 0.6s 0.1s ease both;
+    }
+
+    .name-line-1 { color: var(--text); display: block; }
+    .name-line-2 {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255,255,255,0.5);
+      display: block;
+    }
+
+    .hero-subtitle {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      animation: fadeInUp 0.6s 0.2s ease both;
+    }
+
+    .hero-sub2 {
+      font-size: 13px;
+      color: var(--text-faint);
+      margin-bottom: 52px;
+      letter-spacing: 0.02em;
+      animation: fadeInUp 0.6s 0.25s ease both;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--text);
+      color: var(--bg);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transition: opacity 0.2s, transform 0.2s;
+      animation: fadeInUp 0.6s 0.35s ease both;
+    }
+
+    .hero-cta:hover {
+      opacity: 0.88;
+      transform: translateY(-2px);
+    }
+
+    .hero-cta::after { content: '↓'; font-weight: 400; }
+
+    /* Big decorative number */
+    .hero-deco {
+      position: absolute;
+      right: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(180px, 25vw, 340px);
+      font-weight: 800;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+      letter-spacing: -0.05em;
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+    }
+
+    /* =============================================
+       À PROPOS
+    ============================================= */
+    #about {
+      padding: 80px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-label {
+      font-family: var(--font-display);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .about-tags {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .tag-chip {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xs);
+      padding: 6px 12px;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--bg-3);
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      font-size: 17px;
+      line-height: 1.8;
+      margin-bottom: 18px;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+    .about-text strong { color: var(--text); font-weight: 500; }
+
+    /* =============================================
+       SECTION HEADERS
+    ============================================= */
+    .section-header { margin-bottom: 52px; }
+
+    .section-eyebrow {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 58px);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      color: var(--text);
+    }
+
+    /* Outline text variant for UE numbers */
+    .section-title-outline {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255,255,255,0.3);
+      font-family: var(--font-display);
+      font-size: clamp(80px, 12vw, 140px);
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      display: block;
+      margin-bottom: -10px;
+    }
+
+    .section-intro {
+      max-width: 680px;
+      color: var(--text-muted);
+      font-size: 15.5px;
+      margin-top: 18px;
+      line-height: 1.8;
+    }
+
+    /* =============================================
+       UE SECTIONS
+    ============================================= */
+    .ue-section {
+      padding: 90px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    /* =============================================
+       CARDS
+    ============================================= */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(460px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px;
+      transition: background 0.2s, border-color 0.2s, transform 0.22s, box-shadow 0.22s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .card-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+      margin-bottom: 3px;
+    }
+
+    .card-subtitle {
+      font-size: 11px;
+      color: var(--text-faint);
+      letter-spacing: 0.02em;
+    }
+
+    /* AC Badge — blanc sur fond sombre */
+    .ac-badge {
+      display: inline-block;
+      border-radius: var(--radius-xs);
+      padding: 4px 10px;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      flex-shrink: 0;
+      background: var(--text);
+      color: var(--bg);
+      text-transform: uppercase;
+    }
+
+    /* Context pills */
+    .context-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .pill {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 3px 10px;
+      font-size: 11px;
+      color: var(--text-faint);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* Description */
+    .card-desc {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      line-height: 1.78;
+      margin-bottom: 22px;
+    }
+
+    /* Divider */
+    .card-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 20px 0;
+    }
+
+    /* Info blocks */
+    .info-blocks {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .info-block-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 8px;
+    }
+
+    .info-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .info-list li {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+
+    .bullet { flex-shrink: 0; margin-top: 1px; }
+
+    /* =============================================
+       BILAN CARDS (par UE)
+    ============================================= */
+    .bilan-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-top: 20px;
+    }
+
+    .bilan-card-title {
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 12px;
+    }
+
+    .bilan-card p {
+      color: var(--text-muted);
+      font-size: 14.5px;
+      line-height: 1.78;
+    }
+
+    /* =============================================
+       BILAN GLOBAL
+    ============================================= */
+    #bilan {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .bilan-global-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-mid);
+      border-radius: var(--radius);
+      padding: 52px;
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    /* Corner accent */
+    .bilan-global-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 80px; height: 80px;
+      border-top: 2px solid var(--text);
+      border-left: 2px solid var(--text);
+      border-radius: var(--radius) 0 0 0;
+      pointer-events: none;
+    }
+
+    .bilan-global-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 80px; height: 80px;
+      border-bottom: 2px solid rgba(255,255,255,0.15);
+      border-right: 2px solid rgba(255,255,255,0.15);
+      border-radius: 0 0 var(--radius) 0;
+      pointer-events: none;
+    }
+
+    .bilan-global-title {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin-bottom: 28px;
+      color: var(--text);
+    }
+
+    .bilan-global-card p {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.82;
+      margin-bottom: 18px;
+    }
+
+    .bilan-global-card p:last-child { margin-bottom: 0; }
+    .bilan-global-card strong { color: var(--text); font-weight: 500; }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    footer .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
+
+    .footer-left .footer-name {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .footer-left .footer-meta {
+      font-size: 12px;
+      color: var(--text-faint);
+    }
+
+    .footer-right {
+      font-size: 11px;
+      color: var(--text-faint);
+      text-align: right;
+    }
+
+    /* =============================================
+       ANIMATIONS
+    ============================================= */
+    /* =============================================
+       TRACE LINK
+    ============================================= */
+    .trace-link {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-decoration-color: var(--border-mid);
+      cursor: pointer;
+      transition: color 0.2s, text-decoration-color 0.2s;
+    }
+    .trace-link:hover {
+      color: var(--text);
+      text-decoration-color: var(--text);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* =============================================
+       RESPONSIVE
+    ============================================= */
+    @media (max-width: 768px) {
+      nav { padding: 12px 16px; }
+      .nav-links { display: none; }
+      section, .ue-section { padding: 60px 0; }
+      .container { padding: 0 16px; }
+      .about-grid { grid-template-columns: 1fr; gap: 28px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .hero-name { font-size: 52px; }
+      .hero-deco { display: none; }
+      .bilan-global-card { padding: 28px 24px; }
+      footer .container { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-right { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <span class="nav-logo">Alexandre BALMAIN</span>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#ue1">UE1</a></li>
+      <li><a href="#ue2">UE2</a></li>
+      <li><a href="#ue3">UE3</a></li>
+      <li><a href="#bilan">Bilan</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-deco">S1</div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-tag">Portfolio S1 — Démarche Portfolio BUT GACO</div>
+
+        <h1 class="hero-name">
+          <span class="name-line-1">Alexandre</span>
+          <span class="name-line-2">BALMAIN</span>
+        </h1>
+
+        <p class="hero-subtitle">IUT de Chambéry — Département GACO — BUT1</p>
+        <p class="hero-sub2">Groupe TD : TDA &nbsp;·&nbsp; Projet Transverse : Roule Galette &nbsp;·&nbsp; 2025–2026</p>
+
+        <a href="#about" class="hero-cta">Voir mes compétences</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div>
+          <p class="about-label">Contexte</p>
+          <div class="about-tags">
+            <span class="tag-chip">BUT1 GACO</span>
+            <span class="tag-chip">IUT de Chambéry</span>
+            <span class="tag-chip">TD : TDA</span>
+            <span class="tag-chip">2025–2026</span>
+            <span class="tag-chip">SAE S1</span>
+            <span class="tag-chip">Projet Transverse</span>
+            <span class="tag-chip">Roule Galette 🥞</span>
+          </div>
+        </div>
+        <div class="about-text reveal">
+          <p>
+            Je suis étudiant en <strong>BUT1 GACO</strong> à l'IUT de Chambéry. Ce portfolio retrace mon parcours de compétences sur le semestre S1, à travers les SAE (Situations d'Apprentissage et d'Évaluation) et le Projet Transverse mené en parallèle.
+          </p>
+          <p>
+            Le <strong>Projet Transverse « Roule Galette »</strong> occupe une place centrale dans ce semestre : il s'agissait d'accompagner Guillaume, un auto-entrepreneur crêpier, dans le développement de son activité — stand marché à Chambéry, vélo écologique, prospection B2B. Un vrai projet, avec un vrai client, et de vraies contraintes.
+          </p>
+          <p>
+            Les trois compétences couvertes sont : <strong>Gérer un projet (UE1)</strong>, <strong>Participer au pilotage d'une organisation (UE2)</strong>, et <strong>Concevoir la démarche marketing (UE3)</strong>. Ce qui suit est une réflexion sincère sur ce que j'ai appris, ce que j'aurais pu mieux faire, et comment ça me prépare pour la suite.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- UE1 — GÉRER UN PROJET -->
+  <section class="ue-section" id="ue1">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-title-outline">UE1</span>
+        <p class="section-eyebrow">Compétence 1</p>
+        <h2 class="section-title">Gérer un projet</h2>
+        <p class="section-intro">
+          Gérer un projet, ça ne se résume pas à cocher des cases dans un planning. Dans un contexte GACO, c'est savoir coordonner un groupe, planifier les actions, répartir les rôles et produire des livrables en temps et en heure. Ce semestre, j'ai travaillé cette compétence à travers deux expériences très différentes mais vraiment complémentaires.
+        </p>
+      </div>
+
+      <div class="cards-grid">
+
+        <!-- SAE 1.04 -->
+        <div class="card reveal">
+          <div class="card-header">
+            <div class="card-header-left">
+              <div class="card-icon">🎯</div>
+              <div>
+                <div class="card-title">SAE 1.04 — Interview d'un professionnel</div>
+                <div class="card-subtitle">Identifier les compétences mobilisées</div>
+              </div>
+            </div>
+            <span class="ac-badge">AC11.01</span>
+          </div>
+
+          <div class="context-pills">
+            <span class="pill">👥 Groupe de 3</span>
+            <span class="pill">📅 Demi-semestre</span>
+            <span class="pill">🛠 Canva · Teams</span>
+          </div>
+
+          <p class="card-desc">
+            Dans le cadre de la SAE 1.04, on a mené une interview d'un manager de projet actif dans le secteur GACO. L'objectif était simple sur le papier mais assez exigeant en pratique : découvrir un métier concret, et faire le lien entre ce que ce professionnel fait au quotidien et les apprentissages critiques de notre référentiel BUT. En amont, on a défini ensemble les thèmes à aborder, rédigé une liste de questions ciblées, puis on a conduit l'entretien sur une heure environ. La partie la plus intéressante pour moi a été le travail de formalisation après coup : mettre des mots sur des compétences observées, c'est plus difficile qu'il n'y paraît. La restitution orale devant les enseignants m'a aussi poussé à sortir de ma zone de confort — je ne suis pas très à l'aise à l'oral dans des contextes formels, et c'était un vrai exercice pour moi.
+          </p>
+
+          <div class="card-divider"></div>
+
+          <div class="info-blocks">
+            <div class="info-block">
+              <p class="info-block-title">Résultats</p>
+              <ul class="info-list">
+                <li><span class="bullet">✅</span> Dossier de formalisation du métier rendu</li>
+                <li><span class="bullet">✅</span> Diaporama Canva produit et présenté</li>
+                <li><span class="bullet">✅</span> Restitution orale devant les enseignants</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Limites</p>
+              <ul class="info-list">
+                <li><span class="bullet">⚠️</span> Répartition des tâches inégale au sein du groupe</li>
+                <li><span class="bullet">⚠️</span> Analyse réflexive des compétences perfectible</li>
+                <li><span class="bullet">⚠️</span> Gestion du temps à améliorer en fin de semestre</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Traces</p>
+              <ul class="info-list">
+                <li><span class="bullet">📎</span> Dossier SAE 1.04 & compte rendu de projet</li>
+                <li><span class="bullet">📎</span> Diaporama Canva de présentation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- PT UE1 — sans mention portfolio individuel -->
+        <div class="card reveal">
+          <div class="card-header">
+            <div class="card-header-left">
+              <div class="card-icon">🥞</div>
+              <div>
+                <div class="card-title">PT — Roule Galette</div>
+                <div class="card-subtitle">Coordination et suivi des actions collectives</div>
+              </div>
+            </div>
+            <span class="ac-badge">AC11.01</span>
+          </div>
+
+          <div class="context-pills">
+            <span class="pill">👤 Auto-entrepreneur</span>
+            <span class="pill">📅 Semestre complet</span>
+            <span class="pill">🛠 Réunions · Répartition des rôles</span>
+          </div>
+
+          <p class="card-desc">
+            Tout au long du Projet Transverse, j'ai participé activement aux réunions de groupe hebdomadaires, pris en charge certains rôles définis collectivement — notamment les relations avec les entreprises et le suivi des actions de communication — et contribué à l'organisation collective du projet. Ce travail m'a obligé à me poser la question de ce que je faisais concrètement à chaque étape, et pourquoi. Ce n'était pas toujours naturel, surtout dans les phases de rush où il y avait beaucoup à produire en parallèle. Mais avec le recul, c'est justement dans ces moments qu'on apprend le plus sur sa façon de travailler en groupe et de gérer ses priorités.
+          </p>
+
+          <div class="card-divider"></div>
+
+          <div class="info-blocks">
+            <div class="info-block">
+              <p class="info-block-title">Résultats</p>
+              <ul class="info-list">
+                <li><span class="bullet">✅</span> Tableau de compétences PT complété</li>
+                <li><span class="bullet">✅</span> Participation active aux réunions de groupe</li>
+                <li><span class="bullet">✅</span> Rôles définis et respectés sur la durée du projet</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Limites</p>
+              <ul class="info-list">
+                <li><span class="bullet">⚠️</span> Lien entre actions PT et AC pas toujours formalisé</li>
+                <li><span class="bullet">⚠️</span> Suivi des tâches à renforcer entre les réunions</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Traces</p>
+              <ul class="info-list">
+                <li><span class="bullet">📎</span> Tableau de compétences PT</li>
+                <li><span class="bullet">📎</span> Comptes rendus de réunions de groupe</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cards-grid -->
+
+      <div class="bilan-card reveal">
+        <p class="bilan-card-title">▸ Bilan — UE1 Gérer un projet</p>
+        <p>Ce semestre, la compétence « Gérer un projet » m'a surtout appris à prendre du recul sur mes propres actions. Que ce soit dans la SAE ou dans le PT, j'ai progressé dans ma capacité à identifier ce que je mets en œuvre, à formaliser des résultats et à travailler en groupe avec des rôles définis. La SAE m'a donné des outils théoriques pour analyser un métier, et le PT m'a permis de les mettre en pratique dans une situation réelle. Je me situe à un niveau intermédiaire sur cette compétence — il me reste des progrès à faire sur la rigueur de la planification et la régularité des livrables, mais les bases sont là.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UE2 — PARTICIPER AU PILOTAGE -->
+  <section class="ue-section" id="ue2">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-title-outline">UE2</span>
+        <p class="section-eyebrow">Compétence 2</p>
+        <h2 class="section-title">Participer au pilotage</h2>
+        <p class="section-intro">
+          Piloter une organisation, c'est contribuer à son suivi et à sa bonne marche via des outils concrets : tableaux de bord, indicateurs de performance, diagnostics stratégiques. En GACO, c'est une compétence transversale qui touche à la fois à l'analyse et à la décision.
+        </p>
+      </div>
+
+      <div class="cards-grid">
+
+        <!-- SAE 1.02 -->
+        <div class="card reveal">
+          <div class="card-header">
+            <div class="card-header-left">
+              <div class="card-icon">📊</div>
+              <div>
+                <div class="card-title">SAE 1.02 — Grand Lac Immobiliers</div>
+                <div class="card-subtitle">Analyse de l'environnement & tableau de bord</div>
+              </div>
+            </div>
+            <span class="ac-badge">AC12.01</span>
+          </div>
+
+          <div class="context-pills">
+            <span class="pill">🏢 Immobilier local</span>
+            <span class="pill">📅 1 mois</span>
+            <span class="pill">🛠 BMC · SWOT</span>
+          </div>
+
+          <p class="card-desc">
+            Dans la SAE 1.02, notre groupe avait pour mission d'analyser l'environnement d'une agence immobilière locale, Grand Lac Immobiliers, afin de construire un tableau de bord et de proposer des indicateurs de pilotage cohérents avec leur stratégie. On a passé environ un mois sur ce travail : recherches documentaires sur le secteur immobilier, réalisation d'un Business Model Canvas, construction d'une matrice SWOT, puis sélection d'indicateurs de performance. Ce projet m'a vraiment aidé à comprendre ce que signifie « piloter » une organisation : ce n'est pas juste regarder des chiffres, c'est choisir les bons indicateurs en fonction des objectifs stratégiques. Ce qui a été difficile, c'est de justifier nos choix — on avait tendance à en proposer trop sans vraiment argumenter leur pertinence.
+          </p>
+
+          <div class="card-divider"></div>
+
+          <div class="info-blocks">
+            <div class="info-block">
+              <p class="info-block-title">Résultats</p>
+              <ul class="info-list">
+                <li><span class="bullet">✅</span> Tableau de bord construit et présenté</li>
+                <li><span class="bullet">✅</span> Note écrite de synthèse rendue</li>
+                <li><span class="bullet">✅</span> BMC et matrice SWOT réalisés</li>
+                <li><span class="bullet">✅</span> Présentation orale réalisée</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Limites</p>
+              <ul class="info-list">
+                <li><span class="bullet">⚠️</span> Justification des indicateurs insuffisante</li>
+                <li><span class="bullet">⚠️</span> Interprétation des écarts peu approfondie</li>
+                <li><span class="bullet">⚠️</span> Mise en forme des livrables perfectible</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Traces</p>
+              <ul class="info-list">
+                <li><span class="bullet">📎</span> Tableau financier SAE 1.02</li>
+                <li><span class="bullet">📎</span> Note de synthèse & diaporama oral</li>
+                <li><span class="bullet">📎</span> Fiche de présentation</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- PT UE2 -->
+        <div class="card reveal">
+          <div class="card-header">
+            <div class="card-header-left">
+              <div class="card-icon">💰</div>
+              <div>
+                <div class="card-title">PT — Pilotage de Roule Galette</div>
+                <div class="card-subtitle">Tableau des coûts & suivi d'activité</div>
+              </div>
+            </div>
+            <span class="ac-badge">AC12.01</span>
+          </div>
+
+          <div class="context-pills">
+            <span class="pill">🥞 Guillaume / Crêpier</span>
+            <span class="pill">📅 Plusieurs semaines</span>
+            <span class="pill">🛠 Tableau des coûts</span>
+          </div>
+
+          <p class="card-desc">
+            Dans le PT, j'ai participé à la construction d'un outil de suivi pour Guillaume, notamment un tableau des coûts pour estimer la rentabilité de son pack chandeleur proposé aux entreprises. C'était une expérience assez différente de la SAE parce qu'on travaillait avec un vrai entrepreneur, et les données étaient réelles — on ne pouvait pas se permettre de faire n'importe quoi. J'ai dû m'adapter à une situation où l'information n'est pas toujours complète et où il faut faire des estimations raisonnées. Les réunions hebdomadaires s'apparentaient à un suivi de pilotage informel, ce qui était intéressant à vivre. Ce que j'aurais voulu améliorer, c'est aller jusqu'au bout de l'analyse financière — on n'a pas calculé de vrai seuil de rentabilité, ce qui aurait pourtant été très concret pour Guillaume.
+          </p>
+
+          <div class="card-divider"></div>
+
+          <div class="info-blocks">
+            <div class="info-block">
+              <p class="info-block-title">Résultats</p>
+              <ul class="info-list">
+                <li><span class="bullet">✅</span> Tableau des coûts réalisé (analyse budgétaire)</li>
+                <li><span class="bullet">✅</span> Indicateurs de suivi des actions définis</li>
+                <li><span class="bullet">✅</span> Contribution au rapport de pilotage PT</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Limites</p>
+              <ul class="info-list">
+                <li><span class="bullet">⚠️</span> Pas de calcul du seuil de rentabilité réel</li>
+                <li><span class="bullet">⚠️</span> Analyse financière pas assez approfondie</li>
+                <li><span class="bullet">⚠️</span> Suivi des indicateurs irrégulier</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Traces</p>
+              <ul class="info-list">
+                <li><span class="bullet">📎</span> <a href="Tableau-des-couts.pdf" target="_blank" rel="noopener noreferrer" class="trace-link">Tableau des coûts PT</a></li>
+                <li><span class="bullet">📎</span> Comptes rendus de réunions</li>
+                <li><span class="bullet">📎</span> Rapport de pilotage PT</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cards-grid -->
+
+      <div class="bilan-card reveal">
+        <p class="bilan-card-title">▸ Bilan — UE2 Participer au pilotage</p>
+        <p>La compétence « Participer au pilotage » est celle sur laquelle j'ai le plus progressé dans ma rigueur analytique. La SAE 1.02 m'a fourni les méthodes (BMC, SWOT, indicateurs), et le PT m'a permis de les appliquer dans un contexte réel, avec ses contraintes et ses imprécisions. Ce qui m'a marqué, c'est la différence entre un exercice académique et une vraie situation entrepreneuriale : Guillaume attendait des résultats concrets, pas juste des analyses. Je me situe à un niveau débutant-intermédiaire sur cette compétence, avec encore beaucoup à apprendre sur l'analyse financière, mais j'ai une bonne compréhension des outils de base.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UE3 — CONCEVOIR LA DÉMARCHE MARKETING -->
+  <section class="ue-section" id="ue3">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-title-outline">UE3</span>
+        <p class="section-eyebrow">Compétence 3</p>
+        <h2 class="section-title">Concevoir la démarche marketing</h2>
+        <p class="section-intro">
+          La compétence marketing vise à analyser un marché, identifier des cibles, définir un positionnement et proposer un mix marketing cohérent. C'est probablement celle qui me parle le plus en GACO, parce qu'elle mêle rigueur analytique et créativité.
+        </p>
+      </div>
+
+      <div class="cards-grid">
+
+        <!-- SAE 1.03 -->
+        <div class="card reveal">
+          <div class="card-header">
+            <div class="card-header-left">
+              <div class="card-icon">⚡</div>
+              <div>
+                <div class="card-title">SAE 1.03 — Démarche marketing WATT</div>
+                <div class="card-subtitle">Étude de marché & plan marketing 4P</div>
+              </div>
+            </div>
+            <span class="ac-badge">AC13.01</span>
+          </div>
+
+          <div class="context-pills">
+            <span class="pill">⚡ Énergie / Mobilité</span>
+            <span class="pill">📅 4–5 semaines</span>
+            <span class="pill">🛠 Google Forms · Excel · Canva</span>
+          </div>
+
+          <p class="card-desc">
+            La SAE 1.03 nous a mis en situation de consultants marketing pour la marque WATT, active dans le secteur de l'énergie et de la mobilité. Notre mission : réaliser une étude de marché complète et proposer un plan pour repositionner la marque auprès d'une cible jeune. On a conçu et diffusé un questionnaire via Google Forms (environ 40 réponses), analysé les résultats sous Excel pour dégager des tendances, puis construit un profil de cible et un mix marketing complet (les 4P). C'est la SAE que j'ai trouvée la plus stimulante ce semestre — j'aime ce côté « partir d'une analyse pour arriver à des recommandations concrètes ». La limite principale, c'est que 40 réponses c'est vraiment trop peu pour être représentatif, et notre analyse concurrentielle aurait pu aller beaucoup plus loin.
+          </p>
+
+          <div class="card-divider"></div>
+
+          <div class="info-blocks">
+            <div class="info-block">
+              <p class="info-block-title">Résultats</p>
+              <ul class="info-list">
+                <li><span class="bullet">✅</span> Rapport d'étude de marché complet rendu</li>
+                <li><span class="bullet">✅</span> Plan marketing 4P proposé</li>
+                <li><span class="bullet">✅</span> Présentation orale Canva réalisée</li>
+                <li><span class="bullet">✅</span> Recommandations de repositionnement formulées</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Limites</p>
+              <ul class="info-list">
+                <li><span class="bullet">⚠️</span> Échantillon trop petit (~40 répondants)</li>
+                <li><span class="bullet">⚠️</span> Analyse concurrentielle insuffisante</li>
+                <li><span class="bullet">⚠️</span> Cohérence diagnostic / recommandations perfectible</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Traces</p>
+              <ul class="info-list">
+                <li><span class="bullet">📎</span> Rapport SAE 1.03 & annexes Google Forms</li>
+                <li><span class="bullet">📎</span> Tableur Excel d'analyse</li>
+                <li><span class="bullet">📎</span> Support de présentation Canva</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- PT UE3 -->
+        <div class="card reveal">
+          <div class="card-header">
+            <div class="card-header-left">
+              <div class="card-icon">📱</div>
+              <div>
+                <div class="card-title">PT — Communication Roule Galette</div>
+                <div class="card-subtitle">Flyers, Instagram, prospection B2B</div>
+              </div>
+            </div>
+            <span class="ac-badge">AC13.01</span>
+          </div>
+
+          <div class="context-pills">
+            <span class="pill">🥞 B2C + B2B</span>
+            <span class="pill">📅 2–3 semaines actions</span>
+            <span class="pill">🛠 Instagram · Print · Prospection</span>
+          </div>
+
+          <p class="card-desc">
+            Dans le PT, la démarche marketing a pris une dimension très opérationnelle. On a conçu et mis en œuvre une stratégie de communication pour Guillaume : flyers et affiches pour son stand au marché de Chambéry, gestion du compte Instagram, et prospection directe auprès d'entreprises locales pour le pack chandeleur. On a aussi travaillé sur une carte de fidélité pour ses clients habituels et réalisé une analyse des coûts pour aider Guillaume à fixer un prix cohérent. Ce qui m'a le plus impliqué, c'est la dualité des cibles : grand public au marché (B2C) et entreprises en prospection (B2B). Ce ne sont vraiment pas les mêmes messages, pas les mêmes supports, pas la même posture. Ce que je regrette, c'est qu'on n'a pas mesuré l'impact de nos actions.
+          </p>
+
+          <div class="card-divider"></div>
+
+          <div class="info-blocks">
+            <div class="info-block">
+              <p class="info-block-title">Résultats</p>
+              <ul class="info-list">
+                <li><span class="bullet">✅</span> Flyers et affiches produits et distribués</li>
+                <li><span class="bullet">✅</span> Publications Instagram réalisées</li>
+                <li><span class="bullet">✅</span> Prospection B2B menée (contacts établis)</li>
+                <li><span class="bullet">✅</span> Carte de fidélité conçue</li>
+                <li><span class="bullet">✅</span> Plan de communication proposé au client</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Limites</p>
+              <ul class="info-list">
+                <li><span class="bullet">⚠️</span> Impact des actions non mesuré</li>
+                <li><span class="bullet">⚠️</span> Qualité graphique des supports à améliorer</li>
+                <li><span class="bullet">⚠️</span> Prospection à élargir davantage</li>
+              </ul>
+            </div>
+            <div class="info-block">
+              <p class="info-block-title">Traces</p>
+              <ul class="info-list">
+                <li><span class="bullet">📎</span> Flyers & affiches PT</li>
+                <li><span class="bullet">📎</span> Publications Instagram</li>
+                <li><span class="bullet">📎</span> Dossier de prospection & carte de fidélité</li>
+                <li><span class="bullet">📎</span> Tableau des coûts & rapport final PT</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /cards-grid -->
+
+      <div class="bilan-card reveal">
+        <p class="bilan-card-title">▸ Bilan — UE3 Concevoir la démarche marketing</p>
+        <p>La compétence marketing est définitivement celle sur laquelle je me sens le plus à l'aise à l'issue de ce semestre. La SAE 1.03 m'a fourni un cadre méthodologique solide (étude de marché, 4P, segmentation), et le PT m'a permis de passer à l'action de façon concrète. Le fait de travailler avec un vrai entrepreneur — avec de vraies contraintes de budget et de timing — donne une dimension que les SAE seules ne permettent pas d'avoir. Je me situe à un bon niveau intermédiaire, même si je dois encore progresser sur l'évaluation de l'impact et la maîtrise des outils quantitatifs.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BILAN GLOBAL -->
+  <section id="bilan">
+    <div class="container">
+      <div class="section-header reveal" style="text-align: center;">
+        <p class="section-eyebrow">Conclusion</p>
+        <h2 class="section-title">Bilan global S1</h2>
+      </div>
+
+      <div class="bilan-global-card reveal">
+        <p class="bilan-global-title">Progression &amp; perspectives S2</p>
+
+        <p>Ce Portfolio S1 est le reflet d'un semestre dense et formateur. À travers les trois compétences travaillées — <strong>Gérer un projet</strong>, <strong>Participer au pilotage</strong>, et <strong>Concevoir la démarche marketing</strong> — j'ai construit des apprentissages à la fois théoriques et pratiques, que j'ai ensuite mis en application dans le Projet Transverse « Roule Galette ».</p>
+
+        <p>Ce projet avec Guillaume m'a particulièrement marqué parce qu'il nous a confrontés à une réalité entrepreneuriale vraie, loin des cas fictifs des SAE. Gérer des délais réels, produire des livrables qu'un client allait vraiment utiliser, s'adapter quand quelque chose ne marchait pas comme prévu — tout ça, ça forme différemment.</p>
+
+        <p>Si je devais retenir trois choses de ce semestre : premièrement, <strong>l'importance de la réflexivité</strong> — se poser régulièrement la question de ce qu'on apprend vraiment ; deuxièmement, <strong>la valeur du travail en groupe</strong>, avec ses forces et ses difficultés ; et troisièmement, le fait qu'<strong>une compétence ne s'acquiert pas en une seule SAE</strong>, mais progressivement, à travers des expériences variées et accumulées.</p>
+
+        <p>Pour le <strong>S2 et la suite</strong>, je veux m'appuyer sur ces bases et aller plus loin. Sur le pilotage, maîtriser vraiment l'analyse financière et les seuils de rentabilité. Sur le marketing, apprendre à mieux mesurer l'impact de mes actions. Et de façon plus générale, gagner en autonomie et en rigueur dans la gestion de projet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-left">
+        <p class="footer-name">Alexandre BALMAIN</p>
+        <p class="footer-meta">BUT1 GACO — IUT de Chambéry — TD : TDA — 2025–2026</p>
+      </div>
+      <div class="footer-right">
+        Portfolio S1<br>
+        Démarche Portfolio BUT GACO
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCROLL REVEAL -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.07 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
